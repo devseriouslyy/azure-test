@@ -1,8 +1,8 @@
 terraform {
   cloud {
-    organization = "adii238-org"   # 🔸 Replace with your Terraform Cloud org name
+    organization = "adii238-org"     # 🔸 Replace with your Terraform Cloud org name
     workspaces {
-      name = "azure-test"   # 🔸 Replace with your workspace name
+      name = "azure-test"     # 🔸 Replace with your workspace name
     }
   }
 
@@ -18,8 +18,20 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_subscription" "current" {}
+# ──────────────────────────────────────────────
+#  Create a Resource Group
+# ──────────────────────────────────────────────
 
-output "subscription_id" {
-  value = data.azurerm_subscription.current.subscription_id
+resource "azurerm_resource_group" "rg" {
+  name     = "rg-terraform-demo1"       # 🔸 Change this to your desired RG name
+  location = "East US"                 # 🔸 Or use your preferred Azure region
+  tags = {
+    environment = "dev"
+    created_by  = "Terraform Cloud"
+  }
+}
+
+# Optional output
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
 }

@@ -31,7 +31,10 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Optional output
-output "resource_group_name" {
-  value = azurerm_resource_group.rg.name
+# Create a Virtual Network in the existing Resource Group
+resource "azurerm_virtual_network" "vnet" {
+  name                = "vnet1"
+  address_space       = ["10.0.0.0/16"]
+  location            = "East US"
+  resource_group_name = "rg-terraform-demo1"
 }

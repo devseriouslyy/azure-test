@@ -1,8 +1,8 @@
 terraform {
   cloud {
-    organization = "adii238-org"     # 🔸 Replace with your Terraform Cloud org name
+    organization = "adii238-org" # 🔸 Replace with your Terraform Cloud org name
     workspaces {
-      name = "azure-test"     # 🔸 Replace with your workspace name
+      name = "azure-test" # 🔸 Replace with your workspace name
     }
   }
 
@@ -23,8 +23,8 @@ provider "azurerm" {
 # ──────────────────────────────────────────────
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-terraform-demo1"       # 🔸 Change this to your desired RG name
-  location = "East US"                 # 🔸 Or use your preferred Azure region
+  name     = "rg-terraform-demo1" # 🔸 Change this to your desired RG name
+  location = "East US"            # 🔸 Or use your preferred Azure region
   tags = {
     environment = "dev"
     created_by  = "Terraform Cloud"
@@ -43,7 +43,7 @@ resource "azurerm_virtual_network" "vnet" {
 resource "azurerm_subnet" "subnet1" {
   name                 = "subnet1"
   resource_group_name  = "rg-terraform-demo1"
-  virtual_network_name = "vnet1"
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.10.0.0/24"]
 }
 
@@ -51,6 +51,6 @@ resource "azurerm_subnet" "subnet1" {
 resource "azurerm_subnet" "subnet2" {
   name                 = "subnet2"
   resource_group_name  = "rg-terraform-demo1"
-  virtual_network_name = "vnet1"
+  virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.20.0.0/24"]
 }

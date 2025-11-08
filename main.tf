@@ -18,13 +18,14 @@ provider "azurerm" {
   features {}
 }
 
+
 # ──────────────────────────────────────────────
 #  Create a Resource Group
 # ──────────────────────────────────────────────
 
 resource "azurerm_resource_group" "rg" {
-  name     = resource_group_name # Change this to your desired RG name
-  location = "East US"           # 🔸 Or use your preferred Azure region
+  name     = "rg-terraform-demo2" # Change this to your desired RG name
+  location = "westus3"            # 🔸 Or use your preferred Azure region
   tags = {
     environment = "dev"
     created_by  = "Terraform Cloud"
@@ -36,13 +37,13 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "vnet1"
   address_space       = ["10.0.0.0/16"]
   location            = "East US"
-  resource_group_name = resource_group_name
+  resource_group_name = "rg-terraform-demo2"
 }
 
 # Subnet 1
 resource "azurerm_subnet" "subnet1" {
   name                 = "subnet1"
-  resource_group_name  = resource_group_name
+  resource_group_name  = "rg-terraform-demo2"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
@@ -50,7 +51,7 @@ resource "azurerm_subnet" "subnet1" {
 # Subnet 2
 resource "azurerm_subnet" "subnet2" {
   name                 = "subnet2"
-  resource_group_name  = resource_group_name
+  resource_group_name  = "rg-terraform-demo2"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }

@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "adii238-org" # 🔸 Replace with your Terraform Cloud org name
     workspaces {
-      name = "azure-test" # 🔸 Replace with your workspace name
+      name = "test-workspace" # 🔸 Replace with your workspace name
     }
   }
 
@@ -24,26 +24,26 @@ provider "azurerm" {
 # ──────────────────────────────────────────────
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-terraform-demo2" # Change this to your desired RG name
-  location = "westus3"            # 🔸 Or use your preferred Azure region
+  name     = "rg-terraform-demo3" # Change this to your desired RG name
+  location = "eastus"             # 🔸 Or use your preferred Azure region
   tags = {
-    environment = "dev"
+    environment = "test"
     created_by  = "Terraform Cloud"
   }
 }
 
 # Create a Virtual Network in the existing Resource Group
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet1"
+  name                = "vnet-A"
   address_space       = ["10.0.0.0/16"]
-  location            = "westus3"
-  resource_group_name = "rg-terraform-demo2"
+  location            = "eastus"
+  resource_group_name = "rg-terraform-demo3"
 }
 
 # Subnet 1
 resource "azurerm_subnet" "subnet1" {
   name                 = "subnet1"
-  resource_group_name  = "rg-terraform-demo2"
+  resource_group_name  = "rg-terraform-demo3"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
@@ -51,7 +51,7 @@ resource "azurerm_subnet" "subnet1" {
 # Subnet 2
 resource "azurerm_subnet" "subnet2" {
   name                 = "subnet2"
-  resource_group_name  = "rg-terraform-demo2"
+  resource_group_name  = "rg-terraform-demo3"
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }

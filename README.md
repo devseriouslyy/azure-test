@@ -1,1 +1,2 @@
 1st Nov 2025: This project is to test working with "Terraform cloud" and "Azure Portal". I have created an account on Terraform cloud and have a prexisting account on Azure portal. Have connected the Terraform cloud account with my Azure subscription. Now I am able to trigger a terraform apply (to create Azure resources) directly from the Terraform UI.
+13th Nov 2025: Created the test branch. Mapped this branch to a new workspace on Terraform cloud. 
